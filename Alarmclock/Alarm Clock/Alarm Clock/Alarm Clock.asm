@@ -31,9 +31,11 @@
  ldi secs, 0
  ldi mins, 0
  ldi hours, 0
+
  ldi alarmsecs, 0
  ldi alarmmins, 0
  ldi alarmhours, 0
+
  ldi alarmstate, 0x00
  ldi timeset, 0x00
 
@@ -85,17 +87,28 @@
  out UCSRB, temp							; Output these settings
 
  clr temp
- ldi temp, (1 << URSEL) | (1 << USBS) | (3 << UCSZ0)
+ ldi temp, (1 << URSEL) | (1 << USBS) | (3 << UCSZ0) ; Frameformat: 8data, 2stop bit
  out UCSRC, temp
  clr temp
 
  loop:
 	rjmp loop			; Wait for interupts
-
+ 
+ ; Internal interupt
  TIMER1_COMP_ISR:		; ISR wordt elke seconde aangeroepen
+	ldi temp, 0x80		; Load 0x80 in to temp
+	rcall transmit		; Send 0x80 to the display to remove so far send bytes
 	rcall incTime		; Handle the time on the display
 	reti				; Return from interupt
-
+ 
+ ; Transmit data
+ transmit:
+    sbis UCSRA, UDRE	; wait for an empty transmit buffer 
+	rjmp transmit		; This is skipped when UDRE flag is cleared, if not then it jumps back to transmit
+	out UDR, temp		; Send the temp date over Tx
+	ret					; Return from subroutine
+ 
+ ; Increase time subroutines
  incTime:
 	ldi temp2, 0		; Load 0 for comparison
 	rcall incSecs		; Increase seconds
@@ -138,38 +151,89 @@
  nextHour:
 	ret					; Return from subroutine
 
- sendSegment:
+ ; Split number subroutine
+ splitNumber:			
+	mov temp2, temp			; Copy temp to temp2 for
+	clr temp				; Empty temp
+
+	splitting:		
+		cpi temp2, 10			; Check if temp2 equals to 10
+		brlo sendNumberPart		; If lower than 10 jump to sendNumberPart
+		subi temp2, 10			; subtract 10 from temp 2
+		inc temp				; Increment temp by one (i.e. 10th of a number)
+		rjmp splitting			; Jump back to splitting to continue splitting of number (i.e. /10)
+
+	sendNumberPart:
+		rcall sendNumber		; Send the number currently in temp (the number devided by 10)
+		mov temp, temp2			; Copy temp2 to temp (the number lower than 10)
+		rcall sendNumber		; Send the number to display
+ 
+ ; Send number subroutine
+ sendNumber:
 	cpi temp, 0				; Check if temp equals 0
-	brne segmentOne			; If temp is not 0 continue with 1
+	brne numbersOne			; If temp is not 0 continue with 1
 	ldi temp, 0b01110111	; Load segments for 0 into temp
-	rjmp segmentDone		; Jump to segmentDone if this is the right segment
+	rjmp numberDone			; Jump to numberDone if this is te right number	
 
-	segmentOne:
+	numberOne:
 		cpi temp, 1				; Check if temp equals 1
-		brne segmentTwo			; If temp is not 1 continue with 2
+		brne numberTwo			; If temp is not 1 continue with 2
 		ldi temp, 0b00100100	; Load the segments for 1 into temp
-		rjmp segmentDone		; Jump to segmentDone if this is the right segment
+		rjmp numberDone			; Jump to numberDone if this is te right number	
 
-	segmentTwo:
+	numberTwo:
 		cpi temp, 2				; Check if temp equals 2
-		brne segmentThree		; If temp is not 2 continue with 3
+		brne numberThree		; If temp is not 2 continue with 3
 		ldi temp, 0b01011101	; Load the segments for 2 into temp
-		rjmp segmentDone		; Jump to segmentDone if this is the right segment
+		rjmp numberDone			; Jump to numberDone if this is te right number	
 
-	segmentThree:
+	numberThree:
 		cpi temp, 3				; Check if temp equals 3
-		brne segmentFour		; If temp is not 3 continue with 4
+		brne numberFour			; If temp is not 3 continue with 4
 		ldi temp, 0b01101101	; Load the segments for 3 into temp
-		rjmp segmentDone		; Jump to segmentDone if this is the right segment
+		rjmp numberDone			; Jump to numberDone if this is te right number	
 
-	segmentFour:
+	numberFour:
 		cpi temp, 4				; Check if temp equals 4
-		brne segmentFive		; If temp is not 4 continue with 5
+		brne numberFive			; If temp is not 4 continue with 5
 		ldi temp, 0b00101110	; Load the segments for 4 into temp
-		rjmp segmentDone		; Jump to segmentDone if this is the right segment			
+		rjmp numberDone			; Jump to numberDone if this is te right number	
+	
+	numberFive:			
+		cpi temp, 5				; Check if temp equals 5
+		brne numberSix			; If temp is not 5 continue with 6
+		ldi temp, 0b01111011	; Load the segments for 6 into temp
+		rjmp numberDone			; Jump to numberDone if this is te right number
 
+	numberSix:				
+		cpi temp, 6				; Check if temp equals 6
+		brne numberSeven		; If temp is not 6 continue with 7
+		ldi temp, 0b01111011	; Load the segments for 6 into temp
+		rjmp numberDone			; Jump to numberDone if this is te right number
+	
+	numberSeven:
+		cpi temp, 7				; Check if temp equals 7
+		brne numberEight		; If temp is not 7 continue with 8
+		ldi temp, 0b00100101	; Load the segments for 7 into temp	
+		rjmp numberDone			; Jump to numberDone if this is te right number
 
- segmentDone:
+	numberEight:
+		cpi temp, 8				; Check if temp equals 8
+		brne numberNine			; If temp is not 8 continue with 9
+		ldi temp, 0b01111111	; Load the segments for 8 into temp
+		rjmp numberDone			; Jump to numberDone if this is te right number
+
+	numberNine:
+		cpi temp, 9				; Check if temp equals 9
+		brne numberClear		; If temp is not 9 go to number Clear
+		ldi temp, 0b01101111	; Load the segments for 9 into temp
+		rjmp numberDone			; Jump to numberDone if this is te right number
+
+	numberClear
+		ldi temp, 0b00000000	; Send nothing to indicate something goes wrong
+		rjmp numberDone			; Jump to numberDone 	
+
+ numberDone:
 	rcall transmit			; Tranmit segment with the right bytes
 	ret
 		
