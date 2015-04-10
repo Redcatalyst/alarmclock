@@ -5,10 +5,8 @@
  *   Author: Rick
  */ 
 
- .NOLIST
  .include "m32def.inc"
 
- .LIST
  .def secs = r16		; Seconds count
  .def mins = r17		; Minutes count
  .def hours = r18		; Hours count
@@ -95,11 +93,11 @@
 	rjmp loop			; Wait for interupts
  
  ; Internal interupt
- TIMER1_COMP_ISR:		; ISR wordt elke seconde aangeroepen
-	ldi temp, 0x80		; Load 0x80 in to temp
-	rcall transmit		; Send 0x80 to the display to remove so far send bytes
-	rcall incTime		; Handle the time on the display
-	reti				; Return from interupt
+ TIMER1_COMP_ISR:				; ISR wordt elke seconde aangeroepen
+	ldi temp, 0x80				; Load 0x80 in to temp
+	rcall transmit				; Send 0x80 to the display to remove so far send bytes
+	rcall sendTimeToDisplay		; Handle the time on the display
+	reti						; Return from interupt
  
  ; Transmit data
  transmit:
@@ -108,7 +106,16 @@
 	out UDR, temp		; Send the temp date over Tx
 	ret					; Return from subroutine
  
+ sendTimeToDisplay:
+	mov temp, hours		; Copy hours into temp
+	rcall splitNumber	; Separate the numbers and send them to display
+	mov temp, mins		; Copy minutes into temp
+	rcall splitNumber	; Separate the numbers and send them to display
+	mov temp, secs		; Copy seconds into temp
+	rcall splitNumber	; Separate the numbers and send them to display
+ 
  ; Increase time subroutines
+ ; These routines manage the timetable's 
  incTime:
 	ldi temp2, 0		; Load 0 for comparison
 	rcall incSecs		; Increase seconds
@@ -152,6 +159,7 @@
 	ret					; Return from subroutine
 
  ; Split number subroutine
+ ; This routine splits the number into 2 parts that are 0 through 9 (i.e. 43 = 4 and 3)
  splitNumber:			
 	mov temp2, temp			; Copy temp to temp2 for
 	clr temp				; Empty temp
@@ -169,6 +177,8 @@
 		rcall sendNumber		; Send the number to display
  
  ; Send number subroutine
+ ; This routine generates the segments to show on the display
+ ; Also calls transmit to send it to the display
  sendNumber:
 	cpi temp, 0				; Check if temp equals 0
 	brne numbersOne			; If temp is not 0 continue with 1
