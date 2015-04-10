@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.52  D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm Fri Apr 10 21:37:05 2015
+AVRASM ver. 2.1.52  D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm Fri Apr 10 21:48:36 2015
 
 
 EQU  SIGNATURE_000 0000001e
@@ -581,30 +581,30 @@ DEF  timeset      r25
 CSEG init         0000000f
 CSEG TIMER1_COMP_ISR 00000034
 CSEG loop         00000033
-CSEG transmit     00000039
-CSEG incTime      0000004b
-CSEG sendTime     00000044
-CSEG toggleColons 0000003d
-CSEG sendState    00000040
-CSEG splitNumber  00000067
-CSEG incSecs      00000052
-CSEG incMins      00000059
-CSEG incHours     00000060
-CSEG nextSec      00000058
-CSEG nextMin      0000005f
-CSEG nextHour     00000066
-CSEG splitting    00000069
-CSEG sendNumberPart 0000006e
-CSEG sendNumber   00000072
-CSEG numberOne    00000076
-CSEG numberDone   000000a0
-CSEG numberTwo    0000007a
-CSEG numberThree  0000007e
-CSEG numberFour   00000082
-CSEG numberFive   00000086
-CSEG numberSix    0000008a
-CSEG numberSeven  0000008e
-CSEG numberEight  00000092
-CSEG numberNine   00000096
-CSEG numberTen    0000009a
-CSEG numberClear  0000009e
+CSEG transmit     0000003a
+CSEG incTime      0000004c
+CSEG sendTime     00000045
+CSEG sendState    00000041
+CSEG toggleColons 0000003e
+CSEG splitNumber  00000068
+CSEG incSecs      00000053
+CSEG incMins      0000005a
+CSEG incHours     00000061
+CSEG nextSec      00000059
+CSEG nextMin      00000060
+CSEG nextHour     00000067
+CSEG splitting    0000006a
+CSEG sendNumberPart 0000006f
+CSEG sendNumber   00000073
+CSEG numberOne    00000077
+CSEG numberDone   000000a1
+CSEG numberTwo    0000007b
+CSEG numberThree  0000007f
+CSEG numberFour   00000083
+CSEG numberFive   00000087
+CSEG numberSix    0000008b
+CSEG numberSeven  0000008f
+CSEG numberEight  00000093
+CSEG numberNine   00000097
+CSEG numberTen    0000009b
+CSEG numberClear  0000009f

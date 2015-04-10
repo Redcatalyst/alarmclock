@@ -100,6 +100,7 @@
 	rcall transmit				; Send 0x80 to the display to remove so far send bytes
 	rcall incTime				; Let the time tick
 	rcall sendTime				; Handle the time on the display
+	rcall sendState				; Send the state of the 7th byte
 	reti						; Return from interupt
  
  ; Transmit data
@@ -229,7 +230,7 @@
 	numberFive:			
 		cpi temp, 5				; Check if temp equals 5
 		brne numberSix			; If temp is not 5 continue with 6
-		ldi temp, 0b01111011	; Load the segments for 6 into temp
+		ldi temp, 0b01101011	; Load the segments for 6 into temp
 		rjmp numberDone			; Jump to numberDone if this is te right number
 
 	numberSix:				

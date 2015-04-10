@@ -23,32 +23,32 @@
   <init><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>31</LINE></init>
   <TIMER1_COMP_ISR><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>98</LINE></TIMER1_COMP_ISR>
   <loop><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>94</LINE></loop>
-  <transmit><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>106</LINE></transmit>
-  <incTime><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>134</LINE></incTime>
-  <sendTime><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>123</LINE></sendTime>
-  <toggleColons><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>112</LINE></toggleColons>
-  <sendState><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>117</LINE></sendState>
-  <splitNumber><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>178</LINE></splitNumber>
-  <incSecs><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>143</LINE></incSecs>
-  <incMins><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>154</LINE></incMins>
-  <incHours><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>165</LINE></incHours>
-  <nextSec><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>151</LINE></nextSec>
-  <nextMin><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>162</LINE></nextMin>
-  <nextHour><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>173</LINE></nextHour>
-  <splitting><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>182</LINE></splitting>
-  <sendNumberPart><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>189</LINE></sendNumberPart>
-  <sendNumber><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>199</LINE></sendNumber>
-  <numberOne><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>205</LINE></numberOne>
-  <numberDone><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>269</LINE></numberDone>
-  <numberTwo><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>211</LINE></numberTwo>
-  <numberThree><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>217</LINE></numberThree>
-  <numberFour><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>223</LINE></numberFour>
-  <numberFive><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>229</LINE></numberFive>
-  <numberSix><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>235</LINE></numberSix>
-  <numberSeven><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>241</LINE></numberSeven>
-  <numberEight><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>247</LINE></numberEight>
-  <numberNine><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>253</LINE></numberNine>
-  <numberTen><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>259</LINE></numberTen>
-  <numberClear><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>265</LINE></numberClear>
+  <transmit><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>107</LINE></transmit>
+  <incTime><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>135</LINE></incTime>
+  <sendTime><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>124</LINE></sendTime>
+  <sendState><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>118</LINE></sendState>
+  <toggleColons><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>113</LINE></toggleColons>
+  <splitNumber><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>179</LINE></splitNumber>
+  <incSecs><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>144</LINE></incSecs>
+  <incMins><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>155</LINE></incMins>
+  <incHours><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>166</LINE></incHours>
+  <nextSec><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>152</LINE></nextSec>
+  <nextMin><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>163</LINE></nextMin>
+  <nextHour><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>174</LINE></nextHour>
+  <splitting><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>183</LINE></splitting>
+  <sendNumberPart><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>190</LINE></sendNumberPart>
+  <sendNumber><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>200</LINE></sendNumber>
+  <numberOne><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>206</LINE></numberOne>
+  <numberDone><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>270</LINE></numberDone>
+  <numberTwo><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>212</LINE></numberTwo>
+  <numberThree><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>218</LINE></numberThree>
+  <numberFour><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>224</LINE></numberFour>
+  <numberFive><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>230</LINE></numberFive>
+  <numberSix><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>236</LINE></numberSix>
+  <numberSeven><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>242</LINE></numberSeven>
+  <numberEight><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>248</LINE></numberEight>
+  <numberNine><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>254</LINE></numberNine>
+  <numberTen><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>260</LINE></numberTen>
+  <numberClear><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>266</LINE></numberClear>
  </LABELS>
 </ASSEMBLER_INFO>
