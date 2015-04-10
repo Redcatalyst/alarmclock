@@ -4,6 +4,8 @@
  *  Created: 8-4-2015 14:07:18
  *   Author: Rick van der Poel en Erik Ottema
  */ 
+ Test 1
+ test 2
 
  .include "m32def.inc"
 
