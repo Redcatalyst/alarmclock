@@ -138,6 +138,38 @@
  nextHour:
 	ret					; Return from subroutine
 
- sendSegments:
-	cpi temp, 0			; Check if temp equals 0
-	brne segment		; 
+ sendSegment:
+	cpi temp, 0				; Check if temp equals 0
+	brne segmentOne			; If temp is not 0 continue with 1
+	ldi temp, 0b01110111	; Load segments for 0 into temp
+	rjmp segmentDone		; Jump to segmentDone if this is the right segment
+
+	segmentOne:
+		cpi temp, 1				; Check if temp equals 1
+		brne segmentTwo			; If temp is not 1 continue with 2
+		ldi temp, 0b00100100	; Load the segments for 1 into temp
+		rjmp segmentDone		; Jump to segmentDone if this is the right segment
+
+	segmentTwo:
+		cpi temp, 2				; Check if temp equals 2
+		brne segmentThree		; If temp is not 2 continue with 3
+		ldi temp, 0b01011101	; Load the segments for 2 into temp
+		rjmp segmentDone		; Jump to segmentDone if this is the right segment
+
+	segmentThree:
+		cpi temp, 3				; Check if temp equals 3
+		brne segmentFour		; If temp is not 3 continue with 4
+		ldi temp, 0b01101101	; Load the segments for 3 into temp
+		rjmp segmentDone		; Jump to segmentDone if this is the right segment
+
+	segmentFour:
+		cpi temp, 4				; Check if temp equals 4
+		brne segmentFive		; If temp is not 4 continue with 5
+		ldi temp, 0b00101110	; Load the segments for 4 into temp
+		rjmp segmentDone		; Jump to segmentDone if this is the right segment			
+
+
+ segmentDone:
+	rcall transmit			; Tranmit segment with the right bytes
+	ret
+		
