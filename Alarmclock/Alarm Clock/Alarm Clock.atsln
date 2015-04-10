@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "Wekker", "Wekker\Wekker.asmproj", "{DD5CDB1B-4C01-4B33-A1CB-4EC5FE72F828}"
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "Alarm Clock", "Alarm Clock\Alarm Clock.asmproj", "{8DBFBFF8-3997-407C-81B4-3CDA8995D436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|AVR = Release|AVR
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DD5CDB1B-4C01-4B33-A1CB-4EC5FE72F828}.Debug|AVR.ActiveCfg = Debug|AVR
-		{DD5CDB1B-4C01-4B33-A1CB-4EC5FE72F828}.Debug|AVR.Build.0 = Debug|AVR
-		{DD5CDB1B-4C01-4B33-A1CB-4EC5FE72F828}.Release|AVR.ActiveCfg = Release|AVR
-		{DD5CDB1B-4C01-4B33-A1CB-4EC5FE72F828}.Release|AVR.Build.0 = Release|AVR
+		{8DBFBFF8-3997-407C-81B4-3CDA8995D436}.Debug|AVR.ActiveCfg = Debug|AVR
+		{8DBFBFF8-3997-407C-81B4-3CDA8995D436}.Debug|AVR.Build.0 = Debug|AVR
+		{8DBFBFF8-3997-407C-81B4-3CDA8995D436}.Release|AVR.ActiveCfg = Release|AVR
+		{8DBFBFF8-3997-407C-81B4-3CDA8995D436}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.52</VERSION>
+ <DEVICE>"ATmega32"</DEVICE>
+ <WORKING_DIR>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRAssembler\2.1.51.64\AvrAssembler/Include</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRAssembler\2.1.51.64\AvrAssembler/Include\m32def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Debug/Alarm Clock.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Debug/Alarm Clock.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Debug\Alarm Clock.map</FILE>
+  <FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Debug\Alarm Clock.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <init><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>30</LINE></init>
+  <loop><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>92</LINE></loop>
+  <TIMER1_COMP_ISR><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>95</LINE></TIMER1_COMP_ISR>
+  <incTime><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>99</LINE></incTime>
+  <incSecs><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>108</LINE></incSecs>
+  <incMins><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>119</LINE></incMins>
+  <incHours><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>130</LINE></incHours>
+  <nextSec><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>116</LINE></nextSec>
+  <nextMin><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>127</LINE></nextMin>
+  <nextHour><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>138</LINE></nextHour>
+ </LABELS>
+</ASSEMBLER_INFO>

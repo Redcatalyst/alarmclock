@@ -4,19 +4,36 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRAssembler</ToolchainName>
-    <ProjectGuid>{dd5cdb1b-4c01-4b33-a1cb-4ec5fe72f828}</ProjectGuid>
+    <ProjectGuid>{8dbfbff8-3997-407c-81b4-3cda8995d436}</ProjectGuid>
     <avrdeviceseries>none</avrdeviceseries>
     <avrdevice>ATmega32</avrdevice>
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.obj</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <Language>ASSEMBLY</Language>
-    <AssemblyName>Wekker</AssemblyName>
-    <Name>Wekker</Name>
-    <RootNamespace>Wekker</RootNamespace>
-    <EntryFile>$(MSBuildProjectDirectory)\Wekker.asm</EntryFile>
+    <AssemblyName>Alarm Clock</AssemblyName>
+    <Name>Alarm Clock</Name>
+    <RootNamespace>Alarm Clock</RootNamespace>
+    <EntryFile>$(MSBuildProjectDirectory)\Alarm Clock.asm</EntryFile>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <AsfVersion>3.5.0</AsfVersion>
+    <avrtoolinterface />
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolName xmlns="">AVR Simulator</ToolName>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <KeepTimersRunning xmlns="">true</KeepTimersRunning>
+      <OverrideVtor xmlns="">false</OverrideVtor>
+      <OverrideVtorValue xmlns="">
+      </OverrideVtorValue>
+      <Channel xmlns="">
+        <host>127.0.0.1</host>
+        <port>57698</port>
+        <ssl>False</ssl>
+      </Channel>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -33,7 +50,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Wekker.asm">
+    <Compile Include="Alarm Clock.asm">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
