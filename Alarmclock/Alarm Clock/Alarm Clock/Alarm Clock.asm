@@ -93,8 +93,8 @@
 	rjmp loop			; Wait for interupts
 
  TIMER1_COMP_ISR:		; ISR wordt elke seconde aangeroepen
-	rcall incTime		; Increase time
-
+	rcall incTime		; Handle the time on the display
+	reti				; Return from interupt
 
  incTime:
 	ldi temp2, 0		; Load 0 for comparison
@@ -137,3 +137,7 @@
 
  nextHour:
 	ret					; Return from subroutine
+
+ sendSegments:
+	cpi temp, 0			; Check if temp equals 0
+	brne segment		; 
