@@ -18,11 +18,14 @@
  .def alarmmins = r22	; Minutes alarm is set on
  .def alarmhours = r23  ; Hours alarm is set on
 
- .def alarmstate = r24		; State of alarm
- .def timeset = r25			; Blinking of time that needs to be set
+ .def state = r24		; 7th byte state
+ .def timeset = r25		; Blinking of time that needs to be set
 
  .org 0x0000			; On reset 
  rjmp init				; Jump to init
+
+ .org OC1Aaddr
+ rjmp TIMER1_COMP_ISR
 
  ; Init program
  init:
@@ -34,7 +37,7 @@
  ldi alarmmins, 0
  ldi alarmhours, 0
 
- ldi alarmstate, 0x00
+ ldi state, 0x00
  ldi timeset, 0x00
 
  ; Init stackpointer
@@ -84,10 +87,9 @@
  ldi temp, (1 << RXEN) | (1 << TXEN)		; Enable receiver/tranmitter
  out UCSRB, temp							; Output these settings
 
- clr temp
  ldi temp, (1 << URSEL) | (1 << USBS) | (3 << UCSZ0) ; Frameformat: 8data, 2stop bit
  out UCSRC, temp
- clr temp
+ ldi temp, 0x00
 
  loop:
 	rjmp loop			; Wait for interupts
@@ -96,7 +98,8 @@
  TIMER1_COMP_ISR:				; ISR wordt elke seconde aangeroepen
 	ldi temp, 0x80				; Load 0x80 in to temp
 	rcall transmit				; Send 0x80 to the display to remove so far send bytes
-	rcall sendTimeToDisplay		; Handle the time on the display
+	rcall incTime				; Let the time tick
+	rcall sendTime				; Handle the time on the display
 	reti						; Return from interupt
  
  ; Transmit data
@@ -106,13 +109,25 @@
 	out UDR, temp		; Send the temp date over Tx
 	ret					; Return from subroutine
  
- sendTimeToDisplay:
+ toggleColons:
+	ldi temp, 0b00000110
+	eor state, temp
+	ret
+ 
+ sendState:				
+	rcall toggleColons		
+	mov temp, state	
+	rcall transmit
+	ret
+ 
+ sendTime:
 	mov temp, hours		; Copy hours into temp
 	rcall splitNumber	; Separate the numbers and send them to display
 	mov temp, mins		; Copy minutes into temp
 	rcall splitNumber	; Separate the numbers and send them to display
 	mov temp, secs		; Copy seconds into temp
 	rcall splitNumber	; Separate the numbers and send them to display
+	ret
  
  ; Increase time subroutines
  ; These routines manage the timetable's 
@@ -175,13 +190,15 @@
 		rcall sendNumber		; Send the number currently in temp (the number devided by 10)
 		mov temp, temp2			; Copy temp2 to temp (the number lower than 10)
 		rcall sendNumber		; Send the number to display
+
+	ret
  
  ; Send number subroutine
  ; This routine generates the segments to show on the display
  ; Also calls transmit to send it to the display
  sendNumber:
 	cpi temp, 0				; Check if temp equals 0
-	brne numbersOne			; If temp is not 0 continue with 1
+	brne numberOne			; If temp is not 0 continue with 1
 	ldi temp, 0b01110111	; Load segments for 0 into temp
 	rjmp numberDone			; Jump to numberDone if this is te right number	
 
@@ -235,11 +252,17 @@
 
 	numberNine:
 		cpi temp, 9				; Check if temp equals 9
-		brne numberClear		; If temp is not 9 go to number Clear
+		brne numberTen			; If temp is not 9 go to numberTen
 		ldi temp, 0b01101111	; Load the segments for 9 into temp
 		rjmp numberDone			; Jump to numberDone if this is te right number
 
-	numberClear
+	numberTen:
+		cpi temp, 10
+		brne numberClear
+		ldi temp, 0b00000000	
+		rjmp numberDone
+
+	numberClear:
 		ldi temp, 0b00000000	; Send nothing to indicate something goes wrong
 		rjmp numberDone			; Jump to numberDone 	
 
