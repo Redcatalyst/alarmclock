@@ -35,7 +35,7 @@
  ldi mins, 0
  ldi hours, 0
 
- ldi alarmsecs, 0
+ ldi alarmsecs, 30
  ldi alarmmins, 0
  ldi alarmhours, 0
 
@@ -106,6 +106,7 @@
 	rcall checkSwitches			; Listen to the switches
 	rcall displayTime			; Display the time/timesettings
 	rcall sendTime				; Handle the time on the display
+	rcall checkAlarm			; Check if the alarm should go off
 	rcall sendState				; Send the state of the 7th byte
 	reti						; Return from interupt
  
@@ -185,6 +186,24 @@
 	ldi temp, 16		; Load 4th bit into temp
 	eor setting, temp	; Exclusive OR setting with temp to get the right output
 	ret
+
+ checkAlarm:
+	sbrs state, 0			; Check if alarm alarm is set
+	rjmp noAlarm			; If not been set jump to noAlarm
+	cp secs, alarmsecs		; Check if the current seconds match the set seconds of the alarm
+	brne noAlarm			; If not equal jump to noAlarm
+	cp mins, alarmmins		; Check if the current minutes match the set minutes of the alarm
+	brne noAlarm			; If not equal jump to noAlarm
+	cp hours, alarmhours	; Check if the current hours match the set hours of the alarm
+	brne noAlarm			; If not equal jump to noAlarm
+	rcall soundAlarm		; If eveything passes then sound the alarm
+	
+ noAlarm:		
+	ret						; Alarm should not go off, return from interupt
+
+ soundAlarm:
+	sbr state, 0b0001000	; Set 3 bits in the state register (toggle alarm buzzer)
+	ret						
 
  ; Increase time subroutines
  ; These routines manage the timetable's 
@@ -345,7 +364,20 @@
 	breq switchOne			; Branch to switch 1 subroutine
 	ret
 
+ alarmOff:
+	cbr state, 0b00001001	; Turn all bits off to make the alarm stop
+	ret
+
+ toggleAlarm:
+	ldi temp, 0b00000001	; Load the indicator bit
+	sbrs state, 3			; Check if the alarm is sounding or not
+	eor state, temp			; Skip if the alarm is sounder else turn off the indicator bit
+	ret				
+
  switchZero:
+	rcall alarmOff			; Turn off the alarm when its sounding
+	sbrs setting, 3			; Check if the 3 bit is set 
+	ret						; If set then return from subroutine
 	sbrc setting, 0 		; Check if the 0 bit is cleared
 	rjmp buttonIncSecs		; If its not cleared increase seconds
 	sbrc setting, 1			; Check if the 1 bit is cleared 
@@ -368,6 +400,7 @@
  switchOne:					
 	sbrc setting, 3		    ; Check if the 3rd bit is cleared
 	rjmp checkSetting		; Jump to the checkSetting routine
+	rcall toggleAlarm		; Toggle the alarm on/off
 	ret
 
  checkSetting:
