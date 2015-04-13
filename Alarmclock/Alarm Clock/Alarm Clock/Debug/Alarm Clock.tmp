@@ -39,7 +39,7 @@
   <sendNumberPart><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>190</LINE></sendNumberPart>
   <sendNumber><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>200</LINE></sendNumber>
   <numberOne><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>206</LINE></numberOne>
-  <numberDone><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>270</LINE></numberDone>
+  <numberDone><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>264</LINE></numberDone>
   <numberTwo><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>212</LINE></numberTwo>
   <numberThree><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>218</LINE></numberThree>
   <numberFour><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>224</LINE></numberFour>
@@ -48,7 +48,6 @@
   <numberSeven><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>242</LINE></numberSeven>
   <numberEight><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>248</LINE></numberEight>
   <numberNine><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>254</LINE></numberNine>
-  <numberTen><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>260</LINE></numberTen>
-  <numberClear><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>266</LINE></numberClear>
+  <numberClear><FILE>D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm</FILE><LINE>260</LINE></numberClear>
  </LABELS>
 </ASSEMBLER_INFO>

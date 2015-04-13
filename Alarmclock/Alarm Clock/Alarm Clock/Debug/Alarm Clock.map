@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.52  D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm Fri Apr 10 21:48:36 2015
+AVRASM ver. 2.1.52  D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm Mon Apr 13 14:54:01 2015
 
 
 EQU  SIGNATURE_000 0000001e
@@ -597,7 +597,7 @@ CSEG splitting    0000006a
 CSEG sendNumberPart 0000006f
 CSEG sendNumber   00000073
 CSEG numberOne    00000077
-CSEG numberDone   000000a1
+CSEG numberDone   0000009d
 CSEG numberTwo    0000007b
 CSEG numberThree  0000007f
 CSEG numberFour   00000083
@@ -606,5 +606,4 @@ CSEG numberSix    0000008b
 CSEG numberSeven  0000008f
 CSEG numberEight  00000093
 CSEG numberNine   00000097
-CSEG numberTen    0000009b
-CSEG numberClear  0000009f
+CSEG numberClear  0000009b

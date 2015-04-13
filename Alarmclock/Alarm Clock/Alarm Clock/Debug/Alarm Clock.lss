@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.52  D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm Fri Apr 10 21:48:36 2015
+AVRASM ver. 2.1.52  D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm Mon Apr 13 14:54:01 2015
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRAssembler\2.1.51.64\AvrAssembler/Include\m32def.inc'
 D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm(8): Including file 'C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRAssembler\2.1.51.64\AvrAssembler/Include\m32def.inc'
@@ -1065,75 +1065,69 @@ D:\Workspace\Alarmclock\Alarmclock\Alarm Clock\Alarm Clock\Alarm Clock.asm(8): I
 000073 3030      	cpi temp, 0				; Check if temp equals 0
 000074 f411      	brne numberOne			; If temp is not 0 continue with 1
 000075 e737      	ldi temp, 0b01110111	; Load segments for 0 into temp
-000076 c02a      	rjmp numberDone			; Jump to numberDone if this is te right number	
+000076 c026      	rjmp numberDone			; Jump to numberDone if this is te right number	
                  
                  	numberOne:
 000077 3031      		cpi temp, 1				; Check if temp equals 1
 000078 f411      		brne numberTwo			; If temp is not 1 continue with 2
 000079 e234      		ldi temp, 0b00100100	; Load the segments for 1 into temp
-00007a c026      		rjmp numberDone			; Jump to numberDone if this is te right number	
+00007a c022      		rjmp numberDone			; Jump to numberDone if this is te right number	
                  
                  	numberTwo:
 00007b 3032      		cpi temp, 2				; Check if temp equals 2
 00007c f411      		brne numberThree		; If temp is not 2 continue with 3
 00007d e53d      		ldi temp, 0b01011101	; Load the segments for 2 into temp
-00007e c022      		rjmp numberDone			; Jump to numberDone if this is te right number	
+00007e c01e      		rjmp numberDone			; Jump to numberDone if this is te right number	
                  
                  	numberThree:
 00007f 3033      		cpi temp, 3				; Check if temp equals 3
 000080 f411      		brne numberFour			; If temp is not 3 continue with 4
 000081 e63d      		ldi temp, 0b01101101	; Load the segments for 3 into temp
-000082 c01e      		rjmp numberDone			; Jump to numberDone if this is te right number	
+000082 c01a      		rjmp numberDone			; Jump to numberDone if this is te right number	
                  
                  	numberFour:
 000083 3034      		cpi temp, 4				; Check if temp equals 4
 000084 f411      		brne numberFive			; If temp is not 4 continue with 5
 000085 e23e      		ldi temp, 0b00101110	; Load the segments for 4 into temp
-000086 c01a      		rjmp numberDone			; Jump to numberDone if this is te right number	
+000086 c016      		rjmp numberDone			; Jump to numberDone if this is te right number	
                  	
                  	numberFive:			
 000087 3035      		cpi temp, 5				; Check if temp equals 5
 000088 f411      		brne numberSix			; If temp is not 5 continue with 6
 000089 e63b      		ldi temp, 0b01101011	; Load the segments for 6 into temp
-00008a c016      		rjmp numberDone			; Jump to numberDone if this is te right number
+00008a c012      		rjmp numberDone			; Jump to numberDone if this is te right number
                  
                  	numberSix:				
 00008b 3036      		cpi temp, 6				; Check if temp equals 6
 00008c f411      		brne numberSeven		; If temp is not 6 continue with 7
 00008d e73b      		ldi temp, 0b01111011	; Load the segments for 6 into temp
-00008e c012      		rjmp numberDone			; Jump to numberDone if this is te right number
+00008e c00e      		rjmp numberDone			; Jump to numberDone if this is te right number
                  	
                  	numberSeven:
 00008f 3037      		cpi temp, 7				; Check if temp equals 7
 000090 f411      		brne numberEight		; If temp is not 7 continue with 8
 000091 e235      		ldi temp, 0b00100101	; Load the segments for 7 into temp	
-000092 c00e      		rjmp numberDone			; Jump to numberDone if this is te right number
+000092 c00a      		rjmp numberDone			; Jump to numberDone if this is te right number
                  
                  	numberEight:
 000093 3038      		cpi temp, 8				; Check if temp equals 8
 000094 f411      		brne numberNine			; If temp is not 8 continue with 9
 000095 e73f      		ldi temp, 0b01111111	; Load the segments for 8 into temp
-000096 c00a      		rjmp numberDone			; Jump to numberDone if this is te right number
+000096 c006      		rjmp numberDone			; Jump to numberDone if this is te right number
                  
                  	numberNine:
 000097 3039      		cpi temp, 9				; Check if temp equals 9
-000098 f411      		brne numberTen			; If temp is not 9 go to numberTen
+000098 f411      		brne numberClear		; If temp is not 9 go to numberTen
 000099 e63f      		ldi temp, 0b01101111	; Load the segments for 9 into temp
-00009a c006      		rjmp numberDone			; Jump to numberDone if this is te right number
-                 
-                 	numberTen:
-00009b 303a      		cpi temp, 10
-00009c f411      		brne numberClear
-00009d e030      		ldi temp, 0b00000000	
-00009e c002      		rjmp numberDone
+00009a c002      		rjmp numberDone			; Jump to numberDone if this is te right number
                  
                  	numberClear:
-00009f e030      		ldi temp, 0b00000000	; Send nothing to indicate something goes wrong
-0000a0 c000      		rjmp numberDone			; Jump to numberDone 	
+00009b e030      		ldi temp, 0b00000000	; Send nothing to indicate something goes wrong
+00009c c000      		rjmp numberDone			; Jump to numberDone 	
                  
                   numberDone:
-0000a1 df98      	rcall transmit			; Tranmit segment with the right bytes
-0000a2 9508      	ret
+00009d df9c      	rcall transmit			; Tranmit segment with the right bytes
+00009e 9508      	ret
 
 
 RESOURCE USE INFORMATION
@@ -1153,7 +1147,7 @@ counted separately from r26..r31 here.
 "ATmega32" register use summary:
 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:   5 r17:   5 r18:   5 r19:  70 r20:   7 r21:   1 r22:   1 r23:   1 
+r16:   5 r17:   5 r18:   5 r19:  68 r20:   7 r21:   1 r22:   1 r23:   1 
 r24:   3 r25:   1 r26:   0 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
 x  :   0 y  :   0 z  :   0 
 Registers used: 10 out of 35 (28.6%)
@@ -1163,16 +1157,16 @@ Registers used: 10 out of 35 (28.6%)
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
-brne  :  14 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :  13 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   6 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :  15 cpse  :   2 dec   :   0 eor   :   1 fmul  :   0 fmuls :   0 
+cpi   :  14 cpse  :   2 dec   :   0 eor   :   1 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   4 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  41 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  40 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   6 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  14 pop   :   0 
-push  :   0 rcall :  15 ret   :  10 reti  :   1 rjmp  :  17 rol   :   0 
+push  :   0 rcall :  15 ret   :  10 reti  :   1 rjmp  :  16 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   1 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1183,7 +1177,7 @@ Instructions used: 17 out of 113 (15.0%)
 "ATmega32" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000146    300      0    300   32768   0.9%
+[.cseg] 0x000000 0x00013e    292      0    292   32768   0.9%
 [.dseg] 0x000060 0x000060      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

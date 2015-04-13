@@ -19,7 +19,7 @@
  .def alarmhours = r23  ; Hours alarm is set on
 
  .def state = r24		; 7th byte state
- .def timeset = r25		; Blinking of time that needs to be set
+ .def setting = r25		; Blinking of time that needs to be set
 
  .org 0x0000			; On reset 
  rjmp init				; Jump to init
@@ -38,7 +38,7 @@
  ldi alarmhours, 0
 
  ldi state, 0x00
- ldi timeset, 0x00
+ ldi setting, 0x00
 
  ; Init stackpointer
  ldi temp, high(RAMEND)	; Load the high value for the stackpointer
@@ -110,15 +110,15 @@
 	out UDR, temp		; Send the temp date over Tx
 	ret					; Return from subroutine
  
- toggleColons:
-	ldi temp, 0b00000110
-	eor state, temp
+ updateState:
+	ldi temp, 0b00000110	; Load 6 into temp
+	eor state, temp			; Preform an exlusive OR 
 	ret
  
  sendState:				
-	rcall toggleColons		
-	mov temp, state	
-	rcall transmit
+	rcall updateState		; Before the state is send it has to be updated		
+	mov temp, state			; Copy the state to temp so it can be send away with transmit
+	rcall transmit			; Send the state to the device
 	ret
  
  sendTime:
@@ -253,15 +253,9 @@
 
 	numberNine:
 		cpi temp, 9				; Check if temp equals 9
-		brne numberTen			; If temp is not 9 go to numberTen
+		brne numberClear		; If temp is not 9 go to numberTen
 		ldi temp, 0b01101111	; Load the segments for 9 into temp
 		rjmp numberDone			; Jump to numberDone if this is te right number
-
-	numberTen:
-		cpi temp, 10
-		brne numberClear
-		ldi temp, 0b00000000	
-		rjmp numberDone
 
 	numberClear:
 		ldi temp, 0b00000000	; Send nothing to indicate something goes wrong
@@ -271,3 +265,58 @@
 	rcall transmit			; Tranmit segment with the right bytes
 	ret
 		
+ checkSwitches:
+	in temp, PINA			; Read port A as input (Switches)
+	cpi temp, 0xfe			; Check if switch 0 is pressed
+	breg switchZero			; Branch to switch 0 subroutine
+	cpi temp, 0xfd			; Check if switch 1 is pressed
+	breg switchOne			; Branch to switch 1 subroutine
+	ret
+
+ switchZero:
+	sbrc setting, 0 		; Check if the 0 bit is cleared
+	rjmp buttonIncSecs		; If its not cleared increase seconds
+	sbrc setting, 1			; Check if the 1st bit is cleared 
+	rjmp buttonIncMins		; If its not cleared increase minutes
+	sbrc setting, 2			; Check if the 2nd bit is cleared
+	rjmp buttonIncHours		; If its not cleared increase hours
+
+ buttonIncSecs:
+	rcall incSecs			; Increase seconds by calling the incSec routine
+	ret
+ 
+ buttonIncMins:
+	rcall incMins			; Increase minutes by calling the incMins routine
+	ret
+
+ buttonIncHours:
+	rcall incHours			; Increase hours by calling the incHours routine
+	ret
+
+ switchOne:					
+	sbrc setting, 3		    ; Check if the 3rd bit is cleared
+	rjmp setTime			; Jump to the set time routine
+	ret
+
+ setTime:
+	sbrc setting, 0			; Check if the 0 bit is cleared
+	rjmp secsJumpMins		; Jump from seconds to minutes
+	sbrc setting, 1			; Check if the 1 bit is cleared 
+	rjmp minsJumpHours		; Jump from minutes to hours
+	sbrc setting, 2			; Check if the 2 bit is cleared
+	rjmp hoursJumpStart		; Finish hours and start the clock
+	ret
+ 
+ secsJumpMins:
+	ldi temp, 0b00000011	; Load 3 into temp 
+	eor setting, temp		; Preform a Exclusive OR to get the right bits set
+	ret
+
+ minsJumpHours:
+	ldi temp, 0b00000110	; Load 6 into temp
+	eor setting, temp		; Preform a exclusive OR to get the right bits set
+	ret
+
+ hoursJumpStart:
+	ldi setting, 0b00000000	; Load 0 into setting to stop setting time and let the clock run
+	ret
