@@ -7,6 +7,7 @@
 
  .include "m32def.inc"
 
+ .def parts	= r15		; Parts of a second
  .def secs = r16		; Seconds count
  .def mins = r17		; Minutes count
  .def hours = r18		; Hours count
@@ -18,8 +19,8 @@
  .def alarmmins = r22	; Minutes alarm is set on
  .def alarmhours = r23  ; Hours alarm is set on
 
- .def state = r24		; 7th byte state
- .def setting = r25		; Blinking of time that needs to be set
+ .def state = r24		; Stores diffrents display states
+ .def setting = r25		; Stores the button settings
 
  .org 0x0000			; On reset 
  rjmp init				; Jump to init
@@ -37,8 +38,8 @@
  ldi alarmmins, 0
  ldi alarmhours, 0
 
- ldi state, 0x00
- ldi setting, 0x00
+ ldi state, 0x00			
+ ldi setting, 0b00011001	
 
  ; Init stackpointer
  ldi temp, high(RAMEND)	; Load the high value for the stackpointer
@@ -51,10 +52,13 @@
  ; Prescaler 256 so 256/11059200 = 0.00002314814
  ; We need 1 sec so, 1/0.00002314814 = 43200~
  ; 43200 is the value we need to give to the timer to get 1 sec
+ ; But 1 second is to slow when we need to adjust the time
+ ; So we are dividing the time by 4, every 1/4th of a second it will call the timer
+ ; The value will be 10800 for 1/4 of a second
 
- ldi temp, high(43200)	; Load the high value for the timer 
+ ldi temp, high(10800)	; Load the high value for the timer 
  out OCR1AH, temp		; Output high value for the timer
- ldi temp, low(43200)	; Load the low value for the timer
+ ldi temp, low(10800)	; Load the low value for the timer
  out OCR1AL, temp		; Output low value for the timer
 
  ; Set prescaler and timer to CTC mode
@@ -98,7 +102,8 @@
  TIMER1_COMP_ISR:				; ISR wordt elke seconde aangeroepen
 	ldi temp, 0x80				; Load 0x80 in to temp
 	rcall transmit				; Send 0x80 to the display to remove so far send bytes
-	rcall incTime				; Let the time tick
+	rcall checkSwitches			; Listen to the switches
+	rcall displayTime			; Display the time/timesettings
 	rcall sendTime				; Handle the time on the display
 	rcall sendState				; Send the state of the 7th byte
 	reti						; Return from interupt
@@ -122,6 +127,8 @@
 	ret
  
  sendTime:
+	cpi setting, 16		; Check if the 4th bit is set in setting
+	brge setTime		; If its equal (or greater) then the time needs to be set
 	mov temp, hours		; Copy hours into temp
 	rcall splitNumber	; Separate the numbers and send them to display
 	mov temp, mins		; Copy minutes into temp
@@ -130,16 +137,79 @@
 	rcall splitNumber	; Separate the numbers and send them to display
 	ret
  
+ ; Time configuring subroutines
+ setTime:
+	sbrc setting, 0			; Check if the 0 bit is cleared
+	rjmp adjustSecs			; Jump to the adjust seconds routine
+	sbrc setting, 1			; Check if the 1 bit is cleared 
+	rjmp adjustMins			; Jump to the adjust minutes routine
+	sbrc setting, 2			; Check if the 2 bit is cleared
+	rjmp adjustHours		; Jump to the adjust hours routine
+	ret
+
+ adjustSecs:
+	ldi temp, 0				; Load 0 into temp
+	rcall transmit			; Send empty away left hour (i.e. Blink once)
+	rcall transmit			; Send empty away right hour (i.e. Blink once)
+	rcall transmit			; Send empty away left min (i.e. Blink once)
+	rcall transmit			; Send empty away right min (i.e. Blink once)
+	mov temp, secs			; Load seconds into temp
+	rcall splitNumber		; Send the seconds away
+	ret
+
+ adjustMins:
+	ldi temp, 0				; Load 0 into temp
+	rcall transmit			; Send empty away left hour (i.e. Blink once)
+	rcall transmit			; Send empty away right hour (i.e. Blink once)
+	mov temp, mins			; Load the minutes into temp
+	rcall splitNumber		; Send the minutes away
+	ldi temp, 0				; Load 0 into temp
+	rcall transmit			; Send empty away left sec (i.e. Blink once)
+	rcall transmit			; Send empty away right sec (i.e. Blink once)
+	ret			
+
+ adjustHours:
+	mov temp, hours			; Load the minutes into temp
+	rcall splitNumber		; rcall splitnumber
+	ldi temp, 0				; Load 0 into temp
+	rcall transmit			; Send empty away left min (i.e. Blink once)
+	rcall transmit			; Send empty away right min (i.e. Blink once)
+	rcall transmit			; Send empty away left sec(i.e. Blink once)
+	rcall transmit			; Send empty away right sec(i.e. Blink once)
+	
+	ret
+
+ displayTime:
+	cpi setting, 8		; Check if setting is equal to 8 (3rd bit)
+	brlo incTime		; If its lower than 8 continue with increasing the time
+	ldi temp, 16		; Load 4th bit into temp
+	eor setting, temp	; Exclusive OR setting with temp to get the right output
+	ret
+
  ; Increase time subroutines
  ; These routines manage the timetable's 
  incTime:
 	ldi temp2, 0		; Load 0 for comparison
+	rcall incParts		; Increase the parts to make a whole second after 4 interupts
+	cpse temp, temp2	; Skip next part if temp isnt 1 (i.e. parts have not reached 4)
 	rcall incSecs		; Increase seconds
 	cpse temp, temp2	; Skip next part if temp isnt 1 (i.e. seconds have not reached 60)
 	rcall incMins		; Increase minutes
 	cpse temp, temp2	; Skip next part if temp isnt 1 (i.e. minutes have not reached 60)
 	rcall incHours		; Increase hours
 	ret
+
+ incParts:
+	inc parts			; Increment the parts with 1
+	mov temp, parts		; Copy the parts into temp
+	cpi temp, 4			; Check if parts equals 4 (4 times a part equals one second(interupt timing))
+	ldi temp, 0			; Clear temp
+	brne nextPart		; If not equal continue with counting parts
+	clr parts			; Clear parts when it reached 4
+	ldi temp, 1			; Load temp with 1 for incTime
+
+ nextPart:
+    ret					; Return from subroutine				
 
  incSecs:
 	ldi temp, 0			; Load 0 into temp for resetting secs when needed
@@ -264,21 +334,23 @@
  numberDone:
 	rcall transmit			; Tranmit segment with the right bytes
 	ret
-		
+	
+ ; Switch routines
+ ; External input will be done by these routines	
  checkSwitches:
 	in temp, PINA			; Read port A as input (Switches)
 	cpi temp, 0xfe			; Check if switch 0 is pressed
-	breg switchZero			; Branch to switch 0 subroutine
+	breq switchZero			; Branch to switch 0 subroutine
 	cpi temp, 0xfd			; Check if switch 1 is pressed
-	breg switchOne			; Branch to switch 1 subroutine
+	breq switchOne			; Branch to switch 1 subroutine
 	ret
 
  switchZero:
 	sbrc setting, 0 		; Check if the 0 bit is cleared
 	rjmp buttonIncSecs		; If its not cleared increase seconds
-	sbrc setting, 1			; Check if the 1st bit is cleared 
+	sbrc setting, 1			; Check if the 1 bit is cleared 
 	rjmp buttonIncMins		; If its not cleared increase minutes
-	sbrc setting, 2			; Check if the 2nd bit is cleared
+	sbrc setting, 2			; Check if the 2 bit is cleared
 	rjmp buttonIncHours		; If its not cleared increase hours
 
  buttonIncSecs:
@@ -295,10 +367,10 @@
 
  switchOne:					
 	sbrc setting, 3		    ; Check if the 3rd bit is cleared
-	rjmp setTime			; Jump to the set time routine
+	rjmp checkSetting		; Jump to the checkSetting routine
 	ret
 
- setTime:
+ checkSetting:
 	sbrc setting, 0			; Check if the 0 bit is cleared
 	rjmp secsJumpMins		; Jump from seconds to minutes
 	sbrc setting, 1			; Check if the 1 bit is cleared 
