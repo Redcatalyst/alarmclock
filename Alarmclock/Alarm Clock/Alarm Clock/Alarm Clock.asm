@@ -25,10 +25,11 @@
  .org 0x0000			; On reset 
  rjmp init				; Jump to init
 
- .org OC1Aaddr
- rjmp TIMER1_COMP_ISR
+ .org OC1Aaddr			; On internalinterupt
+ rjmp TIMER1_COMP_ISR	; Call the Interupt Service Routine: TIMER1_COMP_ISR
 
  ; Init program
+ ; Load 0 for default values
  init:
  ldi secs, 0
  ldi mins, 0
@@ -149,34 +150,33 @@
 
  adjustSecs:
 	ldi temp, 0				; Load 0 into temp
-	rcall transmit			; Send empty away left hour (i.e. Blink once)
-	rcall transmit			; Send empty away right hour (i.e. Blink once)
-	rcall transmit			; Send empty away left min (i.e. Blink once)
-	rcall transmit			; Send empty away right min (i.e. Blink once)
+	rcall transmit			; Send empty byte away left hour (i.e. Blink once)
+	rcall transmit			; Send empty byte away right hour (i.e. Blink once)
+	rcall transmit			; Send empty byte away left min (i.e. Blink once)
+	rcall transmit			; Send empty byte away right min (i.e. Blink once)
 	mov temp, secs			; Load seconds into temp
 	rcall splitNumber		; Send the seconds away
 	ret
 
  adjustMins:
 	ldi temp, 0				; Load 0 into temp
-	rcall transmit			; Send empty away left hour (i.e. Blink once)
-	rcall transmit			; Send empty away right hour (i.e. Blink once)
+	rcall transmit			; Send empty byte away left hour (i.e. Blink once)
+	rcall transmit			; Send empty byte away right hour (i.e. Blink once)
 	mov temp, mins			; Load the minutes into temp
 	rcall splitNumber		; Send the minutes away
 	ldi temp, 0				; Load 0 into temp
-	rcall transmit			; Send empty away left sec (i.e. Blink once)
-	rcall transmit			; Send empty away right sec (i.e. Blink once)
+	rcall transmit			; Send empty byte away left sec (i.e. Blink once)
+	rcall transmit			; Send empty byte away right sec (i.e. Blink once)
 	ret			
 
  adjustHours:
 	mov temp, hours			; Load the minutes into temp
 	rcall splitNumber		; rcall splitnumber
 	ldi temp, 0				; Load 0 into temp
-	rcall transmit			; Send empty away left min (i.e. Blink once)
-	rcall transmit			; Send empty away right min (i.e. Blink once)
-	rcall transmit			; Send empty away left sec(i.e. Blink once)
-	rcall transmit			; Send empty away right sec(i.e. Blink once)
-	
+	rcall transmit			; Send empty byte away left min (i.e. Blink once)
+	rcall transmit			; Send empty byte away right min (i.e. Blink once)
+	rcall transmit			; Send empty byte away left sec (i.e. Blink once)
+	rcall transmit			; Send empty byte away right sec (i.e. Blink once)
 	ret
 
  displayTime:
