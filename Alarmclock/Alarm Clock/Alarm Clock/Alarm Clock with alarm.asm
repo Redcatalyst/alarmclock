@@ -129,14 +129,25 @@
 	ret
  
  sendTime:
-	cpi setting, 32		; Check if the 5 bit is set in setting
-	brge setTime		; If its equal or greater then the time needs to be set
+	cpi setting, 33		; Check if the 5 and 0 bit are set in setting (adjust time, start with secs)
+	breq setTime		; If its equal then the time needs to be set
 	mov temp, hours		; Copy hours into temp
 	rcall splitNumber	; Separate the numbers and send them to display
 	mov temp, mins		; Copy minutes into temp
 	rcall splitNumber	; Separate the numbers and send them to display
 	mov temp, secs		; Copy seconds into temp
 	rcall splitNumber	; Separate the numbers and send them to display
+	ret
+ 
+ sendAlarmTime:
+    cpi setting, 64			; Check if the 6 bit is set
+	brge setAlarm			; If its equal or greater
+	mov temp, alarmhours	; Copy hours into temp
+	rcall splitNumber		; Separate the numbers and send them to display
+	mov temp, alarmmins		; Copy minutes into temp
+	rcall splitNumber		; Separate the numbers and send them to display
+	mov temp, alarmsecs		; Copy seconds into temp
+	rcall splitNumber		; Separate the numbers and send them to display
 	ret
  
  ; Time configuring subroutines
@@ -147,7 +158,10 @@
 	rjmp adjustMins			; Jump to the adjust minutes routine
 	sbrc setting, 2			; Check if the 2 bit is cleared
 	rjmp adjustHours		; Jump to the adjust hours routine
-	sbrc setting, 3			; Check if the 3 bit is cleared
+	ret
+
+ setAlarm:
+ 	sbrc setting, 3			; Check if the 3 bit is cleared
 	rjmp adjustAlarmMins	; Jump to the adjust alarm minutes routine
 	sbrc setting, 4			; Check if the 4 bit is cleared
 	rjmp adjustAlarmHours
