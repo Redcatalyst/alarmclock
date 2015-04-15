@@ -413,12 +413,12 @@
 	ret
  
  secsJumpMins:
-	ldi temp, 0b00000011	; Load 3 into temp 
+	ldi temp, 0b00000011	; Load 3 into temp, turn bit 0 off and bit 1 on with EOR
 	eor setting, temp		; Preform a Exclusive OR to get the right bits set
 	ret
 
  minsJumpHours:
-	ldi temp, 0b00000110	; Load 6 into temp
+	ldi temp, 0b00000110	; Load 6 into temp, turn bit 1 off and bit 2 on with EOR
 	eor setting, temp		; Preform a exclusive OR to get the right bits set
 	ret
 
